@@ -1,0 +1,23 @@
+{
+    "name": "npmweb/laravel-health-check",
+    "description": "",
+    "authors": [
+        {
+            "name": "Josh Justice",
+            "email": "josh.justice@northpoint.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "NpmWeb\\LaravelHealthCheck\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
