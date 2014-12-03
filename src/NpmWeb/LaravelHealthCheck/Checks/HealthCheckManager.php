@@ -71,11 +71,11 @@ class HealthCheckManager extends Manager {
      *
      * @return string
      */
-    // public function getDefaultDriver()
-    // {
-    //     $driver = $this->app['config']->get(self::$packageName.'::driver');
-    //     return $driver;
-    // }
+    public function getDefaultDriver()
+    {
+        $driver = $this->app['config']->get(self::$packageName.'::driver');
+        return $driver;
+    }
 
     /**
      * Set the default authentication driver name.
@@ -83,9 +83,9 @@ class HealthCheckManager extends Manager {
      * @param  string  $name
      * @return void
      */
-    // public function setDefaultDriver($name)
-    // {
-    //     $this->app['config']->set(self::$packageName.'::driver', $name);
-    // }
+    public function setDefaultDriver($name)
+    {
+        $this->app['config']->set(self::$packageName.'::driver', $name);
+    }
 
 }
