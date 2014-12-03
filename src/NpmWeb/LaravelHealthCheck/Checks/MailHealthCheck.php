@@ -21,7 +21,7 @@ class MailHealthCheck implements HealthCheckInterface {
             Mail::$method('laravel-health-check::emails.test', array(), function($message) {
                 $message
                     ->from('npmunplug@gmail.com')
-                    ->to('josh.justice@northpoint.org')
+                    ->to('npmunplug@gmail.com')
                     ->subject('Health Check');
             });
             return true;
