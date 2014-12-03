@@ -5,23 +5,30 @@ use Mail;
 
 class MailHealthCheck implements HealthCheckInterface {
 
+    protected $emailAddr;
     protected $method;
 
-    public function __construct( $method = 'send' ) {
-        $this->method = $method;
+    public function __construct( array $config = null ) {
+        $this->emailAddr = $config['email'];
+        if( isset($config['method']) ) {
+            $this->method = $config['method'];
+        } else {
+            $this->method = 'send';
+        }
     }
 
     public function getName() {
-        return 'mail-queue';
+        return 'mail';
     }
 
     public function check() {
         try {
             $method = $this->method;
-            Mail::$method('laravel-health-check::emails.test', array(), function($message) {
+            $email = $this->emailAddr;
+            Mail::$method('laravel-health-check::emails.test', array(), function($message) use($email) {
                 $message
-                    ->from('npmunplug@gmail.com')
-                    ->to('npmunplug@gmail.com')
+                    ->from($email)
+                    ->to($email)
                     ->subject('Health Check');
             });
             return true;

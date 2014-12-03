@@ -6,6 +6,9 @@ return array(
         'database' => true,
         'flysystem' => 'cdn',
         'framework' => true,
-        'mail' => 'queue',
+        'mail' => array(
+            'email' => 'test@example.com',
+            'method' => 'queue',
+        ),
     ),
 );
