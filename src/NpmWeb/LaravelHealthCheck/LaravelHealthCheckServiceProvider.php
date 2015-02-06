@@ -13,6 +13,14 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
      */
     protected $defer = false;
 
+    protected $configFilePath;
+
+    public function __construct($app)
+    {
+        parent::__construct($app);
+        $this->configFilePath = __DIR__.'/../../config/config.php';
+    }
+
     /**
      * Bootstrap the application events.
      *
@@ -20,7 +28,9 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('npmweb/laravel-health-check');
+        $this->publishes([ $this->configFilePath => config_path('health-check.php')]);
+        $this->mergeConfigFrom( $this->configFilePath, 'health-check' );
+
         $this->app->bind('health-checks', function($app) {
             $checkConfigs = $this->app->config->get('laravel-health-check::checks');
             $checks = [];
@@ -40,16 +50,6 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
     public function register()
     {
         // do nothing
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return array();
     }
 
 }
