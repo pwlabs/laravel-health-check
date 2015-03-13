@@ -2,6 +2,10 @@
 
 use DB;
 
+/**
+ * Checks that the Laravel default database connection can connect. No config
+ * needed.
+ */
 class DatabaseHealthCheck implements HealthCheckInterface {
 
     public function getName() {

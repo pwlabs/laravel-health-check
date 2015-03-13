@@ -2,6 +2,24 @@
 
 use File;
 
+/**
+ * Checks that an appropriate cron is set up in a given file. Note: this doesn't
+ * confirm that crond is running, or that it's looking at this file, or that
+ * it's valid cron format; it just checks to see that the given file has the
+ * given content.
+ *
+ * Config format:
+ *
+ * 'checks' => [
+ *   'cron' => [
+ *     '/path/to/cronfile' => [
+ *       'regexp to match',
+ *       ...
+ *     ]
+ *   ],
+ *   ...
+ * ]
+ */
 class CronHealthCheck implements HealthCheckInterface {
 
     protected $cronFiles;

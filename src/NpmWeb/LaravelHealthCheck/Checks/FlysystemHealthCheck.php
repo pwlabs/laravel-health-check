@@ -3,6 +3,17 @@
 use Exception;
 use GrahamCampbell\Flysystem\Facades\Flysystem;
 
+/**
+ * Checks that the appropriate Flysystem connection is able to connect. Uses
+ * Graham Campbell's Laravel wrapper for Flysystem.
+ *
+ * Config format:
+ *
+ * 'checks' => [
+ *   'flysystem' => 'whichconnection',
+ *   ...
+ * ]
+ */
 class FlysystemHealthCheck implements HealthCheckInterface {
 
     protected $flysystem;

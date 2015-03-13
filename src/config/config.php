@@ -1,8 +1,10 @@
 <?php
 
-// TODO have more "basic" starter values, override in project
 return array(
     'checks' => array(
+        'cron' => [
+            '/etc/cron.d/my_cron_file' => 'artisan custom:command',
+        ],
         'database' => true,
         'flysystem' => 'cdn',
         'framework' => true,

@@ -3,6 +3,20 @@
 use Exception;
 use Mail;
 
+/**
+ * Checks that Laravel can send mail. Actually sends a real message, so make
+ * sure not to put in a real email address.
+ *
+ * Config format:
+ *
+ * 'checks' => [
+ *   'mail' => [
+ *     'email' => 'address@to.send.to',
+ *     'method' => 'send' // or 'queue'
+ *   ],
+ *   ...
+ * ]
+ */
 class MailHealthCheck implements HealthCheckInterface {
 
     protected $emailAddr;
