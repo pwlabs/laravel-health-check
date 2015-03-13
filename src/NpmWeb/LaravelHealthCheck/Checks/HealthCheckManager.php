@@ -22,6 +22,16 @@ class HealthCheckManager extends Manager {
     }
 
     /**
+     * Create an instance of the cron driver.
+     *
+     * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
+     */
+    public function createCronDriver()
+    {
+        return new CronHealthCheck($this->getCheckConfig('cron'));
+    }
+
+    /**
      * Create an instance of the database driver.
      *
      * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
