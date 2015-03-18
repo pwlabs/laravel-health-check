@@ -28,11 +28,12 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->publishes([ $this->configFilePath => config_path('health-check.php')]);
-        $this->mergeConfigFrom( $this->configFilePath, 'health-check' );
+        $this->publishes([ $this->configFilePath => config_path('laravel-health-check.php')]);
+        $this->loadViewsFrom(__DIR__.'/../../views', 'laravel-health-check');
+        $this->mergeConfigFrom( $this->configFilePath, 'laravel-health-check' );
 
         $this->app->bind('health-checks', function($app) {
-            $checkConfigs = $this->app->config->get('laravel-health-check::checks');
+            $checkConfigs = $this->app->config->get('laravel-health-check.checks');
             $checks = [];
             foreach( $checkConfigs as $driver => $checkConfig ) {
                 // echo 'foo';exit;
