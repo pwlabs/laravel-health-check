@@ -1,7 +1,7 @@
 <?php namespace NpmWeb\LaravelHealthCheck\Controllers;
 
 use App;
-use Controller;
+use Illuminate\Routing\Controller;
 use Response;
 
 class HealthCheckController extends Controller {
