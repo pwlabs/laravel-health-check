@@ -1,18 +1,27 @@
 <?php namespace NpmWeb\LaravelHealthCheck\Checks;
 
+use Closure;
 use Exception;
-use GrahamCampbell\Flysystem\Facades\Flysystem;
+use League\Flysystem\FileSystem;
 
 class FlysystemHealthCheck implements HealthCheckInterface {
 
     protected $flysystem;
 
-    public function __construct( $conn ) {
-        $this->flysystem = $this->createFlysystem( $conn );
+    public function __construct( $config ) {
+         \Log::debug(__METHOD__.'(' . print_r($config,true) . ')');
+        $this->flysystem = $this->createFlysystem( $config );
     }
 
-    protected function createFlysystem( $conn ) {
-        return Flysystem::connection( $conn );
+    protected function createFlysystem( $config ) {
+        $adapter = $config['adapter'];
+        if (is_string($adapter)) {
+            $reflection = new \ReflectionClass($adapterClass);
+            $inst = new Filesystem ( $reflection->newInstance( $config['config'] ) );
+        } else if (is_object($adapter) && ($adapter instanceof Closure)) {
+            $inst = new Filesystem( $adapter->__invoke() );
+        }
+        return $inst;
     }
 
     public function getName() {
@@ -21,7 +30,9 @@ class FlysystemHealthCheck implements HealthCheckInterface {
 
     public function check() {
         try {
-            return null != $this->flysystem->listContents();
+            $files = $this->flysystem->listContents();
+             \Log::debug(__METHOD__.':: Got these files: '.print_r($files,true));
+            return ( $files !== false && !empty($files));
         } catch( Exception $e ) {
             return false;
         }
