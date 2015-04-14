@@ -5,6 +5,19 @@ use Illuminate\Support\Manager;
 class HealthCheckManager extends Manager {
 
     static $packageName = 'laravel-health-check';
+    private $config;
+
+    /**
+     * Create a new manager instance.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    public function __construct($app)
+    {
+        parent::__construct($app);
+        $this->config = config( self::$packageName . '.checks');
+    }
 
     /**
      * Create a new driver instance.
@@ -62,8 +75,8 @@ class HealthCheckManager extends Manager {
     }
 
     protected function getCheckConfig($checkName) {
-        $checkConfigs = $this->app->config->get('laravel-health-check::checks');
-        return $checkConfigs[$checkName];
+        $checkConfig = $this->config[ $checkName ];
+        return $checkConfig;
     }
 
     /**
@@ -73,7 +86,7 @@ class HealthCheckManager extends Manager {
      */
     public function getDefaultDriver()
     {
-        $driver = $this->app['config']->get(self::$packageName.'::driver');
+        $driver = $this->config[self::$packageName.'::driver'];
         return $driver;
     }
 
