@@ -2,7 +2,6 @@
 
 use Illuminate\Support\ServiceProvider;
 use Log;
-use NpmWeb\LaravelHealthCheck\Checks\HealthCheckManager;
 
 class LaravelHealthCheckServiceProvider extends ServiceProvider {
 
@@ -26,6 +25,10 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
      *
      * Binds an array of HealthCheckInterface to 'health-checks' in IoC
      *
+     * There can be multiple instances of a type of check. If so,
+     * the config for that check will be an array of arrays; if it's a single,
+     * instance name defaults to "default" and config is array of vals
+     *
      * @return void
      */
     public function boot()
@@ -35,14 +38,8 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom( $this->configFilePath, 'laravel-health-check' );
 
         $this->app->bind('health-checks', function($app) {
-            $checkConfigs = config('laravel-health-check.checks');
-            $checks = [];
             $manager = new HealthCheckManager($app);
-            foreach( $checkConfigs as $driver => $checkConfig ) {
-                // echo 'foo';exit;
-                $checks[] = $manager->driver($driver);
-            }
-            return $checks;
+            return $manager->configuredChecks();
         });
     }
 

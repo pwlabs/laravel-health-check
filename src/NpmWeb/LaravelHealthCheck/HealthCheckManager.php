@@ -1,11 +1,17 @@
-<?php namespace NpmWeb\LaravelHealthCheck\Checks;
+<?php namespace NpmWeb\LaravelHealthCheck;
 
 use Illuminate\Support\Manager;
+
+use NpmWeb\LaravelHealthCheck\Checks\DatabaseHealthCheck;
+use NpmWeb\LaravelHealthCheck\Checks\FilesystemHealthCheck;
+use NpmWeb\LaravelHealthCheck\Checks\FrameworkHealthCheck;
+use NpmWeb\LaravelHealthCheck\Checks\MailHealthCheck;
 
 class HealthCheckManager extends Manager {
 
     static $packageName = 'laravel-health-check';
     private $config;
+    private $checks = null;
 
     /**
      * Create a new manager instance.
@@ -20,16 +26,44 @@ class HealthCheckManager extends Manager {
     }
 
     /**
-     * Create a new driver instance.
+     * instantiates each check defined in the config file
+     *
+     * @return array of HealthCheckInterface instances
+     */
+    public function configuredChecks() {
+        if ($this->checks === null) {
+            $this->checks = [];
+            foreach( $this->config as $driver => $checkConfig ) {
+                // check if multiple or just one
+                if (is_array($checkConfig)) {
+                    foreach( $checkConfig as $config ) {
+                        $this->checks[] = $this->createInstance( $driver, $config );
+                    }
+                } else {
+                    $this->checks[] = $this->createInstance( $driver, $checkConfig );
+                }
+            }
+        }
+        return $this->checks;
+    }
+
+    /**
+     * Create a new instance of the driver
      *
      * @param  string  $driver
+     * @param  mixed   $config
      * @return mixed
      */
-    protected function createDriver($driver)
+    public function createInstance($driver, $config = false)
     {
-        $reference = parent::createDriver($driver);
+         \Log::debug(__METHOD__.'('.$driver.', '.print_r($config,true).')');
+        // use createDriver() because driver() only creates on instance
+        $reference = $this->createDriver($driver);
 
         // any other setup needed
+        if ($config) {
+            $reference->configure($config);
+        }
 
         return $reference;
     }
@@ -45,13 +79,14 @@ class HealthCheckManager extends Manager {
     }
 
     /**
-     * Create an instance of the flysystem driver.
+     * Create an instance of the filesystem driver.
      *
      * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
      */
-    public function createFlysystemDriver()
+    public function createFilesystemDriver()
     {
-        return new FlysystemHealthCheck($this->getCheckConfig('flysystem'));
+         \Log::debug(__METHOD__.'()');
+        return new FilesystemHealthCheck;
     }
 
     /**
@@ -71,12 +106,7 @@ class HealthCheckManager extends Manager {
      */
     public function createMailDriver()
     {
-        return new MailHealthCheck($this->getCheckConfig('mail'));
-    }
-
-    protected function getCheckConfig($checkName) {
-        $checkConfig = $this->config[ $checkName ];
-        return $checkConfig;
+        return new MailHealthCheck;
     }
 
     /**

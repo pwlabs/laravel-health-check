@@ -2,16 +2,28 @@
 
 use DB;
 
-class DatabaseHealthCheck implements HealthCheckInterface {
+class DatabaseHealthCheck extends AbstractHealthCheck {
 
-    public function getName() {
+    public function configure( $config ) {
+        parent::configure($config);
+        if (is_string($config)) {
+            $this->setInstanceName( $config );
+        }
+    }
+
+    public function getType() {
         return 'database';
     }
 
     public function check() {
         try {
-            return false != DB::select('SELECT 1');
-        } catch( Exception $e ) {
+            if ( $this->instanceName == 'default' ) {
+                return false != DB::select('SELECT 1');
+            } else {
+                return false != DB::connection( $this->instanceName )->select('SELECT 1');
+            }
+        } catch( \Exception $e ) {
+            \Log::error('Exception doing db check: '.$e->getMessage());
             return false;
         }
     }

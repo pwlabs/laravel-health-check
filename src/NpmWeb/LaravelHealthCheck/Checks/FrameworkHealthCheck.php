@@ -1,8 +1,8 @@
 <?php namespace NpmWeb\LaravelHealthCheck\Checks;
 
-class FrameworkHealthCheck implements HealthCheckInterface {
+class FrameworkHealthCheck extends AbstractHealthCheck {
 
-    public function getName() {
+    public function getType() {
         return 'framework';
     }
 

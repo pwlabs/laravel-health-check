@@ -15,6 +15,7 @@ class HealthCheckController extends Controller {
     public function index()
     {
         $checkNames = array_map( function($check) {
+             \Log::debug(__METHOD__.':: got another health-check! ['. $check->getName().']');
             return $check->getName();
         }, $this->healthChecks );
 
