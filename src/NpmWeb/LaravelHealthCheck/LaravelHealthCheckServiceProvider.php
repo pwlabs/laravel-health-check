@@ -24,6 +24,8 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
     /**
      * Bootstrap the application events.
      *
+     * Binds an array of HealthCheckInterface to 'health-checks' in IoC
+     *
      * @return void
      */
     public function boot()
@@ -33,11 +35,12 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom( $this->configFilePath, 'laravel-health-check' );
 
         $this->app->bind('health-checks', function($app) {
-            $checkConfigs = $this->app->config->get('laravel-health-check.checks');
+            $checkConfigs = config('laravel-health-check.checks');
             $checks = [];
+            $manager = new HealthCheckManager($app);
             foreach( $checkConfigs as $driver => $checkConfig ) {
                 // echo 'foo';exit;
-                $checks[] = (new HealthCheckManager($app))->driver($driver);
+                $checks[] = $manager->driver($driver);
             }
             return $checks;
         });
