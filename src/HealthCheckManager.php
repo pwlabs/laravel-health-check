@@ -4,6 +4,7 @@ use Illuminate\Support\Manager;
 
 use NpmWeb\LaravelHealthCheck\Checks\DatabaseHealthCheck;
 use NpmWeb\LaravelHealthCheck\Checks\FilesystemHealthCheck;
+use NpmWeb\LaravelHealthCheck\Checks\FlysystemHealthCheck;
 use NpmWeb\LaravelHealthCheck\Checks\FrameworkHealthCheck;
 use NpmWeb\LaravelHealthCheck\Checks\MailHealthCheck;
 
@@ -36,8 +37,12 @@ class HealthCheckManager extends Manager {
             foreach( $this->config as $driver => $checkConfig ) {
                 // check if multiple or just one
                 if (is_array($checkConfig)) {
-                    foreach( $checkConfig as $config ) {
-                        $this->checks[] = $this->createInstance( $driver, $config );
+                    foreach( $checkConfig as $key => $config ) {
+                        $instance = $this->createInstance( $driver, $config );
+                        if (is_string($key)) {
+                            $instance->setInstanceName($key);
+                        }
+                        $this->checks[] = $instance;
                     }
                 } else {
                     $this->checks[] = $this->createInstance( $driver, $checkConfig );
@@ -56,7 +61,6 @@ class HealthCheckManager extends Manager {
      */
     public function createInstance($driver, $config = false)
     {
-         \Log::debug(__METHOD__.'('.$driver.', '.print_r($config,true).')');
         // use createDriver() because driver() only creates on instance
         $reference = $this->createDriver($driver);
 
@@ -87,6 +91,17 @@ class HealthCheckManager extends Manager {
     {
          \Log::debug(__METHOD__.'()');
         return new FilesystemHealthCheck;
+    }
+
+    /**
+     * Create an instance of the flysystem driver.
+     *
+     * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
+     */
+    public function createFlysystemDriver()
+    {
+         \Log::debug(__METHOD__.'()');
+        return new FlysystemHealthCheck;
     }
 
     /**
