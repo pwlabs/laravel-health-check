@@ -19,7 +19,6 @@ class FlysystemHealthCheck extends AbstractHealthCheck {
     protected $flysystem;
 
     public function configure($config ) {
-        \Log::debug(__METHOD__.'(' . print_r($config,true) . ')');
         $this->flysystem = $this->createFlysystem( $config );
     }
 
@@ -40,7 +39,7 @@ class FlysystemHealthCheck extends AbstractHealthCheck {
             $config = $fsConfig;
         }
 
-        \Log::debug(__METHOD__.':: now instantiating a Flysystem for '.$driver);
+        \Log::debug(__METHOD__.':: instantiating a Flysystem for '.$driver);
         $adapter = $this->getAdapterForDriver($driver, $config);
 
         return new Filesystem ( $adapter );
