@@ -7,6 +7,7 @@ use NpmWeb\LaravelHealthCheck\Checks\FilesystemHealthCheck;
 use NpmWeb\LaravelHealthCheck\Checks\FlysystemHealthCheck;
 use NpmWeb\LaravelHealthCheck\Checks\FrameworkHealthCheck;
 use NpmWeb\LaravelHealthCheck\Checks\MailHealthCheck;
+use NpmWeb\LaravelHealthCheck\Checks\WebServiceHealthCheck;
 
 class HealthCheckManager extends Manager {
 
@@ -43,7 +44,10 @@ class HealthCheckManager extends Manager {
                         $this->checks[] = $instance;
                     }
                 } else {
-                    $this->checks[] = $this->createInstance( $driver, $checkConfig );
+                    $instance = $this->createInstance( $driver, $checkConfig );
+                    $instance->setInstanceName(is_string($key)?$key:$checkConfig);
+                     \Log::debug(__METHOD__.':: instance of '.$driver.' is '.$instance->getInstanceName());
+                    $this->checks[] = $instance;
                 }
             }
         }
@@ -87,7 +91,6 @@ class HealthCheckManager extends Manager {
      */
     public function createFilesystemDriver()
     {
-         \Log::debug(__METHOD__.'()');
         return new FilesystemHealthCheck;
     }
 
@@ -98,7 +101,6 @@ class HealthCheckManager extends Manager {
      */
     public function createFlysystemDriver()
     {
-         \Log::debug(__METHOD__.'()');
         return new FlysystemHealthCheck;
     }
 
@@ -121,6 +123,17 @@ class HealthCheckManager extends Manager {
     {
         return new MailHealthCheck;
     }
+
+    /**
+     * Create an instance of the web service driver.
+     *
+     * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
+     */
+    public function createWebserviceDriver()
+    {
+        return new WebServiceHealthCheck;
+    }
+
 
     /**
      * Get the default authentication driver name.
