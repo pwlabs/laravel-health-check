@@ -39,9 +39,7 @@ class HealthCheckManager extends Manager {
                 if (is_array($checkConfig)) {
                     foreach( $checkConfig as $key => $config ) {
                         $instance = $this->createInstance( $driver, $config );
-                        if (is_string($key)) {
-                            $instance->setInstanceName($key);
-                        }
+                        $instance->setInstanceName(is_string($key)?$key:$config);
                         $this->checks[] = $instance;
                     }
                 } else {
