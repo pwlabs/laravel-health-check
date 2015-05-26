@@ -4,13 +4,6 @@ use DB;
 
 class DatabaseHealthCheck extends AbstractHealthCheck {
 
-    public function configure( $config ) {
-        parent::configure($config);
-        if (is_string($config)) {
-            $this->setInstanceName( $config );
-        }
-    }
-
     public function getType() {
         return 'database';
     }

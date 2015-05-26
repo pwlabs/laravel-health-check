@@ -8,11 +8,6 @@ use Storage;
  */
 class FilesystemHealthCheck extends AbstractHealthCheck {
 
-    public function configure( $config ) {
-        parent::configure($config);
-        $this->setInstanceName( $config );
-    }
-
     public function getType() {
         return 'filesystem';
     }
@@ -23,7 +18,7 @@ class FilesystemHealthCheck extends AbstractHealthCheck {
             //\Log::debug(__METHOD__.':: Got these files for disk ('.$this->getInstanceName() . '): '.print_r($files,true));
             return ( $files !== false && !empty($files));
         } catch( Exception $e ) {
-            \Log::error('Exception getting files for '.$this->getInstanceName.': '.$e->getMessage());
+            \Log::error('Exception getting files for '.$this->getInstanceName().': '.$e->getMessage());
             return false;
         }
     }
