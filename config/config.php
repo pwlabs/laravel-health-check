@@ -11,6 +11,7 @@ return array(
         // config/filesystems
         // array or array of arrays has all configuration details here
         'flysystem' => [
+            'cdn',
             'cloudfiles' => [
                 'driver'    => 'rackspace',
                 'username'  => 'your-username',
@@ -22,6 +23,15 @@ return array(
             ],
         ],
         'framework' => true,
+        'webservice' => [
+            'mma' => [
+                'url' => 'http://api.endpoint.com/'
+                'check' => function($response) { // some callback to verify response
+                    $json = $response->json();
+                    return ($json && !empty($json['elements']));
+                }
+            ]
+        ]
         'mail' => array(
             'email' => 'test@example.com',
             'method' => 'queue',
