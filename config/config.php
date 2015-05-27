@@ -25,13 +25,13 @@ return array(
         'framework' => true,
         'webservice' => [
             'mma' => [
-                'url' => 'http://api.endpoint.com/'
+                'url' => 'http://api.endpoint.com/',
                 'check' => function($response) { // some callback to verify response
                     $json = $response->json();
                     return ($json && !empty($json['elements']));
                 }
             ]
-        ]
+        ],
         'mail' => array(
             'email' => 'test@example.com',
             'method' => 'queue',
