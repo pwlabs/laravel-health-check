@@ -32,3 +32,5 @@ routes.php
 * Configure the health checks:
     - `php artisan config:publish npmweb/laravel-health-check`
     - Edit `app/config/packages/npmweb/laravel-health-check/config.php`
+
+For information on each health check, see comments in the appropriate class under src/NpmWeb/LaravelHealthCheck/Checks.
