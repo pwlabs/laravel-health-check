@@ -45,8 +45,6 @@ class HealthCheckManager extends Manager {
                     }
                 } else {
                     $instance = $this->createInstance( $driver, $checkConfig );
-                    $instance->setInstanceName(is_string($key)?$key:$checkConfig);
-                     \Log::debug(__METHOD__.':: instance of '.$driver.' is '.$instance->getInstanceName());
                     $this->checks[] = $instance;
                 }
             }
