@@ -8,7 +8,7 @@ Usage
 
 * Add to Composer:
     - Repositories: `{ "type": "vcs", "url": "git@github.com:npmweb/laravel-health-check" },`
-    - Dependencies: `"npmweb/laravel-health-check": "~2.0",`
+    - Dependencies: `"npmweb/laravel-health-check": "^2.0",`
     - `composer update`
 * Add service provider:
 
