@@ -7,8 +7,24 @@ Usage
 =====
 
 * Add to Composer:
-    - Repositories: `{ "type": "vcs", "url": "git@github.com:pwlabs/laravel-health-check" },`
-    - Dependencies: `"pwlabs/laravel-health-check": "dev-master@dev",`
+    - Repositories: `{
+                           "type": "package",
+                           "package": {
+                                 "name": "pwlabs/laravel-health-check",
+                                 "version": "1.1.0",
+                                 "source": {
+                                      "url": "git://github.com/pwlabs/laravel-health-check.git",
+                                      "type": "git",
+                                      "reference": "larafour"
+                                 },
+                                 "autoload": {
+                                      "psr-0" : {
+                                          "PwLabs\\LaravelHealthCheck\\" : "src/"
+                                      }
+                                 }
+                           }
+                      },`
+    - Dependencies: `"pwlabs/laravel-health-check": "1.1.0@larafour",`
     - `composer update`
 * Add service provider:
 

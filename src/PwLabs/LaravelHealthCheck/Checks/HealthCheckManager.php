@@ -52,6 +52,16 @@ class HealthCheckManager extends Manager {
     }
 
     /**
+     * Create an instance of the azure storage driver.
+     *
+     * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface
+     */
+    public function createStorageDriver()
+    {
+        return new StorageHealthCheck($this->getCheckConfig('storage'));
+    }
+
+    /**
      * Create an instance of the framework driver.
      *
      * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface

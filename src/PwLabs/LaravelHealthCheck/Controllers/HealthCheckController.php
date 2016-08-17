@@ -18,9 +18,18 @@ class HealthCheckController extends Controller {
             return $check->getName();
         }, $this->healthChecks );
 
+        $data['components'] = [];
+        $checked = [];
+        foreach ($checkNames as $checkName) {
+            $check = $this->getHealthCheckByName($checkName);
+            $checked['type'] = $checkName;
+            $checked['status'] = $check->check();
+            array_push($data['components'], $checked);
+        }
+
         return Response::json([
-            'status' => 'success',
-            'checks' => $checkNames,
+            'statusCode' => 200,
+            'data' => $data,
         ]);
     }
 
