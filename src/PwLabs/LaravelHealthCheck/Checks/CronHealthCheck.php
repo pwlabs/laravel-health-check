@@ -1,4 +1,4 @@
-<?php namespace NpmWeb\LaravelHealthCheck\Checks;
+<?php namespace PwLabs\LaravelHealthCheck\Checks;
 
 use File;
 

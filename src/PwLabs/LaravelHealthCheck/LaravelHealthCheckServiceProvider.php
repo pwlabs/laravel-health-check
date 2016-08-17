@@ -1,8 +1,8 @@
-<?php namespace NpmWeb\LaravelHealthCheck;
+<?php namespace PwLabs\LaravelHealthCheck;
 
 use Illuminate\Support\ServiceProvider;
 use Log;
-use NpmWeb\LaravelHealthCheck\Checks\HealthCheckManager;
+use PwLabs\LaravelHealthCheck\Checks\HealthCheckManager;
 
 class LaravelHealthCheckServiceProvider extends ServiceProvider {
 
@@ -20,7 +20,7 @@ class LaravelHealthCheckServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('npmweb/laravel-health-check');
+        $this->package('pwlabs/laravel-health-check');
         $this->app->bind('health-checks', function($app) {
             $checkConfigs = $this->app->config->get('laravel-health-check::checks');
             $checks = [];

@@ -1,7 +1,11 @@
 {
-    "name": "npmweb/laravel-health-check",
+    "name": "pwlabs/laravel-health-check",
     "description": "",
     "authors": [
+        {
+            "name": "Vincent Lau",
+            "email": "vincent@takatack.com"
+        },
         {
             "name": "Josh Justice",
             "email": "josh.justice@northpoint.org"
@@ -13,7 +17,7 @@
     },
     "autoload": {
         "psr-0": {
-            "NpmWeb\\LaravelHealthCheck\\": "src/"
+            "PwLabs\\LaravelHealthCheck\\": "src/"
         }
     },
     "minimum-stability": "stable"

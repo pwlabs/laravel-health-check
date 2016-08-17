@@ -1,4 +1,4 @@
-<?php namespace NpmWeb\LaravelHealthCheck\Checks;
+<?php namespace PwLabs\LaravelHealthCheck\Checks;
 
 use Illuminate\Support\Manager;
 
@@ -24,7 +24,7 @@ class HealthCheckManager extends Manager {
     /**
      * Create an instance of the cron driver.
      *
-     * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
+     * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface
      */
     public function createCronDriver()
     {
@@ -34,7 +34,7 @@ class HealthCheckManager extends Manager {
     /**
      * Create an instance of the database driver.
      *
-     * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
+     * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface
      */
     public function createDatabaseDriver()
     {
@@ -44,7 +44,7 @@ class HealthCheckManager extends Manager {
     /**
      * Create an instance of the flysystem driver.
      *
-     * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
+     * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface
      */
     public function createFlysystemDriver()
     {
@@ -54,7 +54,7 @@ class HealthCheckManager extends Manager {
     /**
      * Create an instance of the framework driver.
      *
-     * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
+     * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface
      */
     public function createFrameworkDriver()
     {
@@ -64,7 +64,7 @@ class HealthCheckManager extends Manager {
     /**
      * Create an instance of the mail queue driver.
      *
-     * @return \NpmWeb\LaravelHealthCheck\Checks\HealthCheckInterface
+     * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface
      */
     public function createMailDriver()
     {

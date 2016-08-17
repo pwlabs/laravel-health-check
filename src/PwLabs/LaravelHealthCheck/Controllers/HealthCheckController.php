@@ -1,4 +1,4 @@
-<?php namespace NpmWeb\LaravelHealthCheck\Controllers;
+<?php namespace PwLabs\LaravelHealthCheck\Controllers;
 
 use App;
 use Controller;

@@ -1,4 +1,4 @@
-<?php namespace NpmWeb\LaravelHealthCheck\Checks;
+<?php namespace PwLabs\LaravelHealthCheck\Checks;
 
 /**
  * Checks that Laravel is running. Shouldn't ever be needed, because the list
