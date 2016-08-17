@@ -11,6 +11,12 @@
             "email": "josh.justice@northpoint.org"
         }
     ],
+    "version": "dev-master",
+    "source": {
+        "url": "git://github.com/pwlabs/laravel-health-check.git",
+        "type": "git",
+        "reference": "larafour"
+    },
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "~4.1 || ~5.0"
