@@ -4,6 +4,7 @@ return array(
     'checks' => array(
         'framework' => true,
         'database' => true,
+        'cache' => true,
         'flysystem' => 'cdn',
         'storage' => Config::get('connection_string'),
         'mail' => array(

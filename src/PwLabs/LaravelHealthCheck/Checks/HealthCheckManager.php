@@ -62,6 +62,16 @@ class HealthCheckManager extends Manager {
     }
 
     /**
+     * Create an instance of the cache driver.
+     *
+     * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface
+     */
+    public function createCacheDriver()
+    {
+        return new CacheHealthCheck;
+    }
+
+    /**
      * Create an instance of the framework driver.
      *
      * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface

@@ -2,7 +2,9 @@
 
 use App;
 use Controller;
+use Request;
 use Response;
+use GuzzleHttp\Client;
 
 class HealthCheckController extends Controller {
 
@@ -18,17 +20,25 @@ class HealthCheckController extends Controller {
             return $check->getName();
         }, $this->healthChecks );
 
+        $statusCode = 200;
         $data['components'] = [];
         $checked = [];
+        $client = new Client;
+
         foreach ($checkNames as $checkName) {
-            $check = $this->getHealthCheckByName($checkName);
+            $response = $client->get(Request::url().'/'.$checkName);
+            $result = $response->json();
             $checked['type'] = $checkName;
-            $checked['status'] = $check->check();
+            $checked['status'] = $result['statusCode'];
+
+            if($checked['status'] != 200) {
+                $statusCode = 500;
+            }
             array_push($data['components'], $checked);
         }
 
         return Response::json([
-            'statusCode' => 200,
+            'statusCode' => $statusCode,
             'data' => $data,
         ]);
     }
@@ -36,9 +46,13 @@ class HealthCheckController extends Controller {
     public function show($checkName)
     {
         $check = $this->getHealthCheckByName($checkName);
-        $result = $check->check();
+        if($check->check() == true) {
+            $code = 200;
+        } else {
+            $code = 500;
+        }
         return Response::json([
-            'status' => $result,
+            'statusCode' => $code,
         ]);
     }
 
