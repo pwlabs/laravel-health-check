@@ -46,7 +46,7 @@ class MailHealthCheck implements HealthCheckInterface {
                     ->subject('Health Check');
             });
             return true;
-        } catch( Exception $e ) {
+        } catch( \Exception $e ) {
             return false;
         }
     }

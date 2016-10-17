@@ -11,7 +11,7 @@ Usage
                            "type": "package",
                            "package": {
                                  "name": "pwlabs/laravel-health-check",
-                                 "version": "1.1.0",
+                                 "version": "1.1.3",
                                  "source": {
                                       "url": "git://github.com/pwlabs/laravel-health-check.git",
                                       "type": "git",
@@ -24,7 +24,7 @@ Usage
                                  }
                            }
                       },`
-    - Dependencies: `"pwlabs/laravel-health-check": "1.1.0@larafour",`
+    - Dependencies: `"pwlabs/laravel-health-check": "1.1.3@larafour",`
     - `composer update`
 * Add service provider:
 

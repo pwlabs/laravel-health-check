@@ -15,7 +15,7 @@ class DatabaseHealthCheck implements HealthCheckInterface {
     public function check() {
         try {
             return false != DB::select('SELECT 1');
-        } catch( Exception $e ) {
+        } catch( \Exception $e ) {
             return false;
         }
     }

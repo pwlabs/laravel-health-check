@@ -16,7 +16,7 @@ class CacheHealthCheck implements HealthCheckInterface {
         try {
             Cache::put('healthcheck', 1, 1);
             return false != Cache::get('healthcheck');
-        } catch( Exception $e ) {
+        } catch( \Exception $e ) {
             return false;
         }
     }
