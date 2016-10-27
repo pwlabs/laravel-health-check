@@ -62,6 +62,16 @@ class HealthCheckManager extends Manager {
     }
 
     /**
+     * Create an instance of the monolog driver.
+     *
+     * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface
+     */
+    public function createLogDriver()
+    {
+        return new LogHealthCheck($this->getCheckConfig('log'));
+    }
+
+    /**
      * Create an instance of the cache driver.
      *
      * @return \PwLabs\LaravelHealthCheck\Checks\HealthCheckInterface

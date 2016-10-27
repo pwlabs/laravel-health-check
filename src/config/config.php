@@ -14,6 +14,7 @@ return array(
             'email' => 'test@example.com',
             'method' => 'queue',
         ),
+        'log' => Config::get('connection_string'),
         'cron' => [
             '/etc/cron.d/my_cron_file' => 'artisan custom:command',
         ],
