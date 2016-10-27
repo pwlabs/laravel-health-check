@@ -6,7 +6,10 @@ return array(
         'database' => true,
         'cache' => true,
         'flysystem' => 'cdn',
-        'storage' => Config::get('connection_string'),
+        'storage' => array(
+            'conn' => Config::get('connection_string'),
+            'source' => Config::get('container_check'),
+        ),
         'mail' => array(
             'email' => 'test@example.com',
             'method' => 'queue',

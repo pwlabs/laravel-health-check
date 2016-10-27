@@ -19,8 +19,9 @@ class StorageHealthCheck implements HealthCheckInterface {
 
     protected $storage;
 
-    public function __construct( $conn ) {
-        $this->storage = $this->createStorage( $conn );
+    public function __construct( $cred ) {
+        $blobStorage = $this->createStorage( $cred['conn'] );
+        $this->storage = $blobStorage->listBlobs( $cred['source'] );
     }
 
     protected function createStorage( $conn ) {
@@ -33,8 +34,7 @@ class StorageHealthCheck implements HealthCheckInterface {
 
     public function check() {
         try {
-            $blob_list = $this->storage->listBlobs("banners");
-            return null != $blob_list->getBlobs();
+            return null != $this->storage->getBlobs();
         } catch( \Exception $e ) {
             return false;
         }
